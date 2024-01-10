@@ -13,8 +13,6 @@ For more detailed information about our methods and results, please refer to our
 
 ## Running
 
-
-## Instructions to Run: 
 ```
 # docker run --name mixtral-offloader --gpus all -p 5000:5000 -v ~/.cache/huggingface/hub:/root/.cache/huggingface/hub ogmiladyloki/mixtral-offloader
 ```

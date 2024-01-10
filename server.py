@@ -124,10 +124,14 @@ async def generate():
         
         # Return both response text and ChatML
         return_data = {
+            "user_input": user_input,
             "response": response_text,
             "chatml": chatml,
-            "modelName": model_name,
-            "quantizedModelName": quantized_model_name
+            "model_name": model_name,
+            "quantized_model_name": quantized_model_name,
+            "temperature": temperature,
+            "top_p": top_p,
+            "max_new_tokens": max_new_tokens
         }
 
         yield return_data

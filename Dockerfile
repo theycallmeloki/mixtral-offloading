@@ -25,5 +25,8 @@ RUN huggingface-cli download lavawolfiee/Mixtral-8x7B-Instruct-v0.1-offloading-d
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
+# Set the entrypoint script
+ENTRYPOINT ["./entrypoint.sh"]
+
 # Run server.py when the container launches
 CMD ["python", "./server.py"]

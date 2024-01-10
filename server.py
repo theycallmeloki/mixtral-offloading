@@ -2,6 +2,7 @@ import sys
 
 sys.path.append("mixtral-offloading")
 import torch
+import json
 from torch.nn import functional as F
 from hqq.core.quantize import BaseQuantizeConfig
 from huggingface_hub import snapshot_download
@@ -134,7 +135,12 @@ async def generate():
             "max_new_tokens": max_new_tokens
         }
 
-        yield return_data
+        # Convert return_data dictionary to JSON string and then to bytes
+        return_data_json = json.dumps(return_data)
+        return_data_bytes = return_data_json.encode('utf-8')
+
+
+        yield return_data_bytes
 
     return Response(generate_stream(), mimetype='application/json')
 

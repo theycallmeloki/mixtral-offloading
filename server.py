@@ -6,7 +6,8 @@ from torch.nn import functional as F
 from hqq.core.quantize import BaseQuantizeConfig
 from huggingface_hub import snapshot_download
 # from IPython.display import clear_output
-from flask import Flask, request, Response
+from quart import Quart, request, Response  # Updated import for Quart
+from quart_cors import cors  # Import for Quart-CORS
 from tqdm.auto import trange
 from transformers import AutoConfig, AutoTokenizer
 from transformers.utils import logging as hf_logging
@@ -33,8 +34,10 @@ offload_per_layer = determine_offload_per_layer()
 print(f"GPU Memory: {get_gpu_memory()} GB")
 print(f"Set offload_per_layer to: {offload_per_layer}")
 
-# Initialize Flask app
-app = Flask(__name__)
+# Initialize Quart app with CORS
+app = Quart(__name__)
+app = cors(app)  # Enable CORS for all routes
+
 
 model_name = "mistralai/Mixtral-8x7B-Instruct-v0.1"
 quantized_model_name = "lavawolfiee/Mixtral-8x7B-Instruct-v0.1-offloading-demo"
@@ -86,14 +89,14 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 streamer = TextStreamer(tokenizer, skip_prompt=True, skip_special_tokens=True)
 
 @app.route('/generate', methods=['POST'])
-def generate():
+async def generate():
     # Extract data from request outside the generator function
-    data = request.json
+    data = await request.json
     user_input = data.get('input')
     user_entry = dict(role="user", content=user_input)
     input_ids = tokenizer.apply_chat_template([user_entry], return_tensors="pt").to(torch.device("cuda:0"))
 
-    def generate_stream():
+    async def generate_stream():
         # Now use the pre-extracted data
         # Generate response using Mixtral
         result = model.generate(

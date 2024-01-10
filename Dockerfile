@@ -15,7 +15,7 @@ COPY requirements.txt .
 
 # Install Python dependencies from requirements.txt
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir flask
+RUN pip install --no-cache-dir quart quart_cors
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install --no-cache-dir git+https://github.com/mobiusml/hqq.git@37502bea31f2969c6680c0c4a88ca74b3bb234a5
 

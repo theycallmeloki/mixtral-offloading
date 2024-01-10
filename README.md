@@ -17,6 +17,8 @@ For more detailed information about our methods and results, please refer to our
 # docker run --name mixtral-offloader --gpus all -p 5000:5000 -v ~/.cache/huggingface/hub:/root/.cache/huggingface/hub ogmiladyloki/mixtral-offloader
 ```
 
+Original work in progress below: 
+
 ## Work in progress
 
 Some techniques described in our technical report are not yet available in this repo. However, we are actively working on adding support for them in the near future.

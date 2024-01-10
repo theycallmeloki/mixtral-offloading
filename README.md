@@ -2,6 +2,14 @@
 
 This project implements efficient inference of [Mixtral-8x7B models](https://mistral.ai/news/mixtral-of-experts/).
 
+## Running
+
+```
+# docker run --name mixtral-offloader --gpus all -p 5000:5000 -v ~/.cache/huggingface/hub:/root/.cache/huggingface/hub ogmiladyloki/mixtral-offloader
+```
+Original work below: 
+
+
 ## How does it work?
 
 In summary, we achieve efficient inference of Mixtral-8x7B models through a combination of techniques:
@@ -11,13 +19,7 @@ In summary, we achieve efficient inference of Mixtral-8x7B models through a comb
 
 For more detailed information about our methods and results, please refer to our [tech-report](https://arxiv.org/abs/2312.17238).
 
-## Running
 
-```
-# docker run --name mixtral-offloader --gpus all -p 5000:5000 -v ~/.cache/huggingface/hub:/root/.cache/huggingface/hub ogmiladyloki/mixtral-offloader
-```
-
-Original work in progress below: 
 
 ## Work in progress
 

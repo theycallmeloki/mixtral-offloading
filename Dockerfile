@@ -18,9 +18,13 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install --no-cache-dir git+https://github.com/mobiusml/hqq.git@37502bea31f2969c6680c0c4a88ca74b3bb234a5
 
-# Install huggingface-cli and download the model
+
+# Install huggingface-cli
 RUN pip install huggingface-cli
-RUN huggingface-cli download lavawolfiee/Mixtral-8x7B-Instruct-v0.1-offloading-demo --quiet --local-dir Mixtral-8x7B-Instruct-v0.1-offloading-demo
+
+# Copy the entrypoint script
+COPY entrypoint.sh .
+RUN chmod +x ./entrypoint.sh
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000

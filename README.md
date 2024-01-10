@@ -13,9 +13,11 @@ For more detailed information about our methods and results, please refer to our
 
 ## Running
 
-To try this demo, please use the demo notebook: [./notebooks/demo.ipynb](./notebooks/demo.ipynb) or [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/dvmazur/mixtral-offloading/blob/master/notebooks/demo.ipynb)
 
-For now, there is no command-line script available for running the model locally. However, you can create one using the demo notebook as a reference. That being said, contributions are welcome!
+## Instructions to Run: 
+```
+# docker run --name mixtral-offloader --gpus all -p 5000:5000 -v ~/.cache/huggingface/hub:/root/.cache/huggingface/hub ogmiladyloki/mixtral-offloader
+```
 
 ## Work in progress
 

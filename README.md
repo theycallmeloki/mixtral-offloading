@@ -8,7 +8,7 @@ This project implements efficient inference of [Mixtral-8x7B models](https://mis
 # docker run --gpus 0 -p 5000:5000 -v ~/.cache/huggingface/hub:/root/.cache/huggingface/hub ogmiladyloki/mixtral-offloader
 ```
 
-You can give a gpu to each container, there's logic included to decide how many experts to load depending on how much VRAM the GPU had
+You can give a gpu to each container, there's logic included to decide how many experts to load depending on how much VRAM the GPU has
 
 Original work below: 
 

@@ -5,7 +5,7 @@ This project implements efficient inference of [Mixtral-8x7B models](https://mis
 ## Running
 
 ```
-# docker run --name mixtral-offloader --gpus all -p 5000:5000 -v ~/.cache/huggingface/hub:/root/.cache/huggingface/hub ogmiladyloki/mixtral-offloader
+# docker run --gpus all -p 5000:5000 -v ~/.cache/huggingface/hub:/root/.cache/huggingface/hub ogmiladyloki/mixtral-offloader
 ```
 Original work below: 
 

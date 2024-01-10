@@ -93,6 +93,10 @@ async def generate():
     # Extract data from request outside the generator function
     data = await request.json
     user_input = data.get('input')
+    # Extract parameters with defaults
+    temperature = data.get('temperature', 0.9)
+    top_p = data.get('top_p', 0.9)
+    max_new_tokens = data.get('max_new_tokens', 512)
     user_entry = dict(role="user", content=user_input)
     input_ids = tokenizer.apply_chat_template([user_entry], return_tensors="pt").to(torch.device("cuda:0"))
 
@@ -103,9 +107,9 @@ async def generate():
             input_ids=input_ids,
             streamer=streamer,
             do_sample=True,
-            temperature=0.9,
-            top_p=0.9,
-            max_new_tokens=512,
+            temperature=temperature,
+            top_p=top_p,
+            max_new_tokens=max_new_tokens,
             pad_token_id=tokenizer.eos_token_id,
             return_dict_in_generate=True,
             output_hidden_states=True,
@@ -113,9 +117,20 @@ async def generate():
         
         # Stream the response
         sequence = result["sequences"]
-        yield tokenizer.decode(sequence[0], skip_special_tokens=True)
+        response_text = tokenizer.decode(sequence[0], skip_special_tokens=True)
 
-    return Response(generate_stream(), mimetype='text/plain')
+        # Construct ChatML format
+        chatml = f"<user>{user_input}</user><bot>{response_text}</bot>"
+        
+        # Return both response text and ChatML
+        return_data = {
+            "response": response_text,
+            "chatml": chatml
+        }
+
+        yield return_data
+
+    return Response(generate_stream(), mimetype='application/json')
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False, host="0.0.0.0", port=5000)

@@ -122,7 +122,7 @@ async def generate():
         # Construct ChatML format
         chatml = f"<user>{user_input}</user><bot>{response_text}</bot>"
         
-        # Return both response text and ChatML
+        # Return everything
         return_data = {
             "user_input": user_input,
             "response": response_text,

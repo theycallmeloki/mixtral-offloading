@@ -1,5 +1,11 @@
-# Use an official Python runtime as a parent image
-FROM python:3.10-slim
+# Use an NVIDIA CUDA base image
+FROM nvidia/cuda:12.0-base
+
+# Install Python and Pip
+RUN apt-get update && apt-get install -y python3 python3-pip
+
+# Install a C compiler
+RUN apt-get install -y build-essential
 
 # Set the working directory in the container
 WORKDIR /

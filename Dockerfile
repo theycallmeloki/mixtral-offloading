@@ -40,4 +40,4 @@ EXPOSE 5000
 ENTRYPOINT ["./entrypoint.sh"]
 
 # Run server.py when the container launches
-CMD ["python", "./server.py"]
+CMD ["python3", "./server.py"]

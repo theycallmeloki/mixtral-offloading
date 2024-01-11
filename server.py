@@ -25,9 +25,14 @@ def get_gpu_memory():
 # Function to determine offload_per_layer based on GPU memory
 def determine_offload_per_layer():
     gpu_memory_gb = get_gpu_memory()
-    offload_value = int(gpu_memory_gb / 4)
-    # Ensure the value is within 1 to 5
-    return max(1, min(offload_value, 5))
+    if gpu_memory_gb <= 12:
+        return 5
+    elif gpu_memory_gb <= 16:
+        return 3
+    elif gpu_memory_gb <= 20:
+        return 2
+    elif gpu_memory_gb <= 24:
+        return 1  # or 2, depending on your specific requirements
 
 # Set the offload_per_layer value
 offload_per_layer = determine_offload_per_layer()
